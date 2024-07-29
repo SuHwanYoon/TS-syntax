@@ -1,5 +1,5 @@
 //기존 메뉴 Array  이름, 가격
-const menu =[
+const oldmenu =[
     
     { name: "Cheeze" , price: 8},
     { name: "Pepperoni" , price: 10},
@@ -8,19 +8,19 @@ const menu =[
     
 ]
 //기존 보유 현금
-const cashInRegister = 100;
+const oldcashInRegister = 100;
 //초기값1이며 1씩 증가하는 오더 id
-const nextOrderId = 1;
+const oldnextOrderId = 1;
 // 주문한 피자 정보가 들어갈 배열
-const orderQueue = [];
+const oldorderQueue = [];
 
 // 메뉴배열에 새로운 피자 메뉴 추가하는 함수
-function addNewPizza(pizzaObj) {
+function oldaddNewPizza(pizzaObj) {
     menu.push(pizzaObj);
 }
 
 // 피자이름을 받아서 주문정보(id, 선택메뉴, 상태) 반환하는 함수
-function placeOrder(pizzaName) {
+function oldplaceOrder(pizzaName) {
     // 주문피자이름과 일치하는 첫번째 메뉴 요소 찾기
     const selectedMenu = menu.find(pizzaObj => pizzaObj.name === pizzaName);
     // 기존 현금보유에서 주문피자가격을 누적
@@ -34,7 +34,7 @@ function placeOrder(pizzaName) {
 }
 
 // 오더 id를 받아 오더정보 반환
-function completeOrder(orderId) {
+function oldcompleteOrder(orderId) {
     // 주문한 오더id와 일치하는 첫번째 오더요소 찾기
     const orderInfo = orderQueue.find(order => order.id === orderId)
     //오더정보 상태
@@ -44,17 +44,17 @@ function completeOrder(orderId) {
 }
 
 // 메뉴배열에 새로운 피자메뉴 3개추가
-addNewPizza({ name: "Chiken Bacon Ranch", cost: 12})
-addNewPizza({ name: "BBQ Chiken", cost: 12})
-addNewPizza({ name: "Spciy Sausage", cost: 11})
+oldaddNewPizza({ name: "Chiken Bacon Ranch", cost: 12})
+oldaddNewPizza({ name: "BBQ Chiken", cost: 12})
+oldaddNewPizza({ name: "Spciy Sausage", cost: 11})
 
 // 치킨 베이컨 렌치 피자의 주문정보를 반환
-placeOrder("Chiken Bacon Ranch")
+oldplaceOrder("Chiken Bacon Ranch")
 // 1번 주문정보 반환
-completeOrder(1)
+oldcompleteOrder(1)
 
 
 console.log("메뉴:", menu)
-console.log("잔액:", cashInRegister)
+console.log("잔액:", oldcashInRegister)
 console.log("주문 정보:", orderQueue)
 
