@@ -1,4 +1,5 @@
 type Pizza = {
+    id: number
     name: string
     price: number
 }
@@ -7,15 +8,18 @@ type Pizza = {
 type Order ={
     id: number
     pizza: Pizza
-    status: string
+    // status: string
+    //객체의 속성을 특정 문자열로 제한
+    status: "ordered" | "completed"
 }
 //기존 메뉴 Array  이름, 가격
-const menu =[
+// menu 배열이 Pizza 배열 타입임을 지정
+const menu : Pizza[] =[
     
-    { name: "Cheeze" , price: 8},
-    { name: "Pepperoni" , price: 10},
-    { name: "Hawaiian" , price: 10},
-    { name: "Meat" , price: 9},
+    { id: 1, name: "Cheeze" , price: 8},
+    { id: 2, name: "Pepperoni" , price: 10},
+    { id: 3, name: "Hawaiian" , price: 10},
+    { id: 4, name: "Meat" , price: 9},
     
 ]
 console.log("기존메뉴:",menu)
@@ -44,7 +48,10 @@ function placeOrder(pizzaName: string) {
     // 기존 현금보유에서 주문피자가격을 누적
     cashInRegister += selectedMenu.price;
     //order순서, 피자메뉴, 주문상태 가 담긴 객체
-    const newOrder = {id: nextOrderId++,pizza: selectedMenu , status: 'ordered'};
+    //TS는 변수 newOrder에 타입을 지정해 주지않는다면 'ordered'를 단지 string으로 판단한다
+    // const newOrder = {id: nextOrderId++,pizza: selectedMenu , status: 'ordered'};
+    //따라서 특정 문자열임을 식별하기 위해서 해당 객체 타입을 지정해준다
+    const newOrder : Order = {id: nextOrderId++,pizza: selectedMenu , status: 'ordered'};
     // 주문 배열에 새로운 주문 정보 푸시
     orderQueue.push(newOrder)
     // 주문정보 반환
@@ -67,9 +74,9 @@ function completeOrder(orderId:number) {
 
 
 // 메뉴배열에 새로운 피자메뉴 3개추가
-addNewPizza({ name: "Chiken Bacon Ranch", price: 12});
-addNewPizza({ name: "BBQ Chiken", price: 12});
-addNewPizza({ name: "Spciy Sausage", price: 11});
+addNewPizza({id: 5 , name: "Chiken Bacon Ranch", price: 12});
+addNewPizza({id: 6 , name: "BBQ Chiken", price: 12});
+addNewPizza({id: 7 , name: "Spciy Sausage", price: 11});
 
 // 치킨 베이컨 렌치 피자의 주문정보객체를 반환
 placeOrder("Chiken Bacon Ranch");
