@@ -72,6 +72,20 @@ function completeOrder(orderId:number) {
     return orderInfo;
 }
 
+//type narrowing를 위한 함수 argument가 문자열 혹은 숫자
+export function getPizzaDetails(identifier:string | number) {
+    //identifier의 타입이 문자열이면
+    if (typeof identifier === "string") {
+        //메뉴 배열에서 argument와 일치하는 피자를 반환 여기서 문자열 처리가 종료
+        return menu.find(pizza => pizza.name.toLowerCase === identifier.toLowerCase)
+    } else if(typeof identifier === "number"){
+        //남은 숫자 타입을 처리
+        return menu.find(pizza => pizza.id === identifier)
+    }else{
+        throw new TypeError("파라미터 `identifier`는 반드시 문자열이거나 숫자여야 합니다")
+    }
+}
+
 
 // 메뉴배열에 새로운 피자메뉴 3개추가
 addNewPizza({id: 5 , name: "Chiken Bacon Ranch", price: 12});
