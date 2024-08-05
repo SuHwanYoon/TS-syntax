@@ -32,12 +32,13 @@ let nextOrderId: number = 1;
 const orderQueue: Order[] = [];
 
 // 메뉴배열에 새로운 피자 메뉴 추가하는 함수
-function addNewPizza(pizzaObj:Pizza) {
+// void 함수지정
+function addNewPizza(pizzaObj:Pizza) : void{
     menu.push(pizzaObj); 
 }
 
 // 피자이름을 받아서 주문정보(id, 선택메뉴, 상태) 반환하는 함수
-function placeOrder(pizzaName: string) {
+function placeOrder(pizzaName: string) : Order | undefined{
     // 주문피자이름과 일치하는 첫번째 메뉴 요소 찾기
     const selectedMenu = menu.find(pizzaObj => pizzaObj.name === pizzaName);
     //menu배열에서 Pizza객체를 찾지 못했을 경우의 처리를 추가
@@ -59,7 +60,7 @@ function placeOrder(pizzaName: string) {
 }
 
 // 오더 id를 받아 오더정보 반환
-function completeOrder(orderId:number) {
+function completeOrder(orderId:number) : Order | undefined {
     // 주문한 오더id와 일치하는 첫번째 오더요소 찾기
     const orderInfo = orderQueue.find(order => order.id === orderId);
     //orderQueue배열에서 order객체를 못찾았을경우
@@ -73,10 +74,11 @@ function completeOrder(orderId:number) {
 }
 
 //type narrowing를 위한 함수 argument가 문자열 혹은 숫자
-export function getPizzaDetails(identifier:string | number) {
+//피자 객체 혹은 undefined를 반환
+export function getPizzaDetails(identifier:string | number): Pizza | undefined {
     //identifier의 타입이 문자열이면
     if (typeof identifier === "string") {
-        //메뉴 배열에서 argument와 일치하는 피자를 반환 여기서 문자열 처리가 종료
+        //메뉴 배열에서 argument와 일치하는 피자객체리턴 일치하는게 없으면 undifined 리턴 여기서 문자열 처리가 종료
         return menu.find(pizza => pizza.name.toLowerCase === identifier.toLowerCase)
     } else if(typeof identifier === "number"){
         //남은 숫자 타입을 처리
