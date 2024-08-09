@@ -12,29 +12,38 @@ type Order ={
     //객체의 속성을 특정 문자열로 제한
     status: "ordered" | "completed"
 }
-//기존 메뉴 Array  이름, 가격
-// menu 배열이 Pizza 배열 타입임을 지정
-const menu : Pizza[] =[
-    
-    { id: 1, name: "Cheeze" , price: 8},
-    { id: 2, name: "Pepperoni" , price: 10},
-    { id: 3, name: "Hawaiian" , price: 10},
-    { id: 4, name: "Meat" , price: 9},
-    
-]
-console.log("기존메뉴:",menu)
-console.log("새로운 메뉴3개를 추가")
 //기존 보유 현금
 let cashInRegister: number = 100;
 //초기값1이며 1씩 증가하는 오더 id
 let nextOrderId: number = 1;
+//초기값1이며 1씩 증가하는 피자 id
+let nextPizzaId: number = 1;
 // 주문한 피자 정보가 들어갈 배열
 const orderQueue: Order[] = [];
 
+
+//기존 메뉴 Array  이름, 가격
+// menu 배열이 Pizza 배열 타입임을 지정
+const menu : Pizza[] =[
+    
+    { id: nextPizzaId++, name: "Cheeze" , price: 8},
+    { id: nextPizzaId++, name: "Pepperoni" , price: 10},
+    { id: nextPizzaId++, name: "Hawaiian" , price: 10},
+    { id: nextPizzaId++, name: "Meat" , price: 9},
+    
+]
+console.log("기존메뉴:",menu)
+console.log("새로운 메뉴3개를 추가")
+
 // 메뉴배열에 새로운 피자 메뉴 추가하는 함수
 // void 함수지정
-function addNewPizza(pizzaObj:Pizza) : void{
-    menu.push(pizzaObj); 
+function addNewPizza(pizzaObj:Omit<Pizza, "id">) : Pizza{
+    const newPizza : Pizza = {
+        id : nextPizzaId++,
+        ...pizzaObj
+    }
+    menu.push(newPizza);
+    return newPizza; 
 }
 
 // 피자이름을 받아서 주문정보(id, 선택메뉴, 상태) 반환하는 함수
@@ -90,9 +99,9 @@ export function getPizzaDetails(identifier:string | number): Pizza | undefined {
 
 
 // 메뉴배열에 새로운 피자메뉴 3개추가
-addNewPizza({id: 5 , name: "Chiken Bacon Ranch", price: 12});
-addNewPizza({id: 6 , name: "BBQ Chiken", price: 12});
-addNewPizza({id: 7 , name: "Spciy Sausage", price: 11});
+addNewPizza({ name: "Chiken Bacon Ranch", price: 12});
+addNewPizza({ name: "BBQ Chiken", price: 12});
+addNewPizza({ name: "Spciy Sausage", price: 11});
 
 // 치킨 베이컨 렌치 피자의 주문정보객체를 반환
 placeOrder("Chiken Bacon Ranch");
