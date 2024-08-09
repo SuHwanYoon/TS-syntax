@@ -36,7 +36,7 @@ console.log("기존메뉴:",menu)
 console.log("새로운 메뉴3개를 추가")
 
 // 메뉴배열에 새로운 피자 메뉴 추가하는 함수
-// void 함수지정
+// id속성이 생략된 피자 객체를 받고 id속성이 포함된 피자객제를 반환 
 function addNewPizza(pizzaObj:Omit<Pizza, "id">) : Pizza{
     const newPizza : Pizza = {
         id : nextPizzaId++,
