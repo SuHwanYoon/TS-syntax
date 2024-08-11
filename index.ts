@@ -68,6 +68,21 @@ function placeOrder(pizzaName: string) : Order | undefined{
     return newOrder;
 }
 
+//파라미터가 배열과 객체(Pizza, Order)인 제네릭함수 
+function addToArray<T>(array: T[], item: T) : T[]{
+    array.push(item)
+    return array
+}
+
+//인자가 객체배열, 객체(Pizza, Order)인 제네릭 함수 호출
+addToArray(menu,{id: nextPizzaId++ , name: "goguma Pizza", price: 20})
+//status 속성이 정의되지않은 속성임에도 오류를 감지하지 못하기때문에 <Order>로 명시적으로 표시를 해준다
+addToArray<Order>(orderQueue,{id:nextOrderId++, pizza: menu[2], status: "completed"})
+
+console.log(menu)
+console.log(orderQueue)
+
+
 // 오더 id를 받아 오더정보 반환
 function completeOrder(orderId:number) : Order | undefined {
     // 주문한 오더id와 일치하는 첫번째 오더요소 찾기
@@ -109,7 +124,7 @@ placeOrder("Chiken Bacon Ranch");
 completeOrder(1);
 
 
-console.log("현재메뉴:", menu);
-console.log("현재잔액:", cashInRegister);
-console.log("주문 정보:", orderQueue);
+// console.log("현재메뉴:", menu);
+// console.log("현재잔액:", cashInRegister);
+// console.log("주문 정보:", orderQueue);
 
